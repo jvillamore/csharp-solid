@@ -11,6 +11,6 @@ void CalculateSalaryMonthly(List<Employee> employees)
 {
     foreach (var employee in employees)
     {
-        Console.WriteLine($"Empleado: {employee.Fullname}, Pago: {employee.CalculateSalaryMonthly():C1} ");
+        Console.WriteLine($"Empleado: {employee.Fullname}, Pago: {employee.GetCalculateSalaryMonthly():C1} ");
     }
 }

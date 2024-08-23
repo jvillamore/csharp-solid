@@ -8,7 +8,10 @@ namespace OpenClose
             HoursWorked = hoursWorked;
         }
 
-        public override decimal CalculateSalaryMonthly()
+        public string Fullname { get; set; }
+        public int HoursWorked { get; set; }
+
+        public decimal GetCalculateSalaryMonthly()
         {
             decimal hourValue = 10000M;
             decimal salary = hourValue * HoursWorked;
