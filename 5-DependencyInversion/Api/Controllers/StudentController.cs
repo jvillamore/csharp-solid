@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DependencyInversion.Controllers;
@@ -5,8 +6,14 @@ namespace DependencyInversion.Controllers;
 [ApiController, Route("student")]
 public class StudentController : ControllerBase
 {
-    StudentRepository studentRepository = new StudentRepository();
-    Logbook logbook = new Logbook();
+    IStudentRepository studentRepository;
+    ILogbook logbook;
+
+    public StudentController(IStudentRepository student, ILogbook log)
+    {
+        studentRepository = student;
+        logbook = log;
+    }
 
     [HttpGet]
     public IEnumerable<Student> Get()
@@ -16,9 +23,12 @@ public class StudentController : ControllerBase
     }
 
     [HttpPost]
-    public void Add([FromBody]Student student)
+    public Student Add([FromBody] Student student)
     {
-        studentRepository.Add(student);
         logbook.Add($"The Student {student.Fullname} have been added");
+        Console.WriteLine("student" + (student is not null) + " esta implementado " + (studentRepository is not null));
+        var respuesta = studentRepository.Add(student);
+        Console.WriteLine("RRR: " + respuesta);
+        return respuesta;
     }
 }
